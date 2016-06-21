@@ -1,0 +1,106 @@
+﻿@model ArtGallary.Models.Art.Account
+
+	<!--start-breadcrumbs-->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="breadcrumbs-main">
+				<ol class="breadcrumb">
+					<li><a href="/Home/index">Home</a></li>
+					<li class="active">Register</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!--end-breadcrumbs-->
+	<!--register-starts-->
+	<div class="register">
+		<div class="container">
+			<div class="register-top heading">
+				<h2>REGISTER ADMIN</h2>
+			</div>
+			<div class="register-main">
+				<div class="col-md-6 account-left">
+                    
+                    @{
+                        IEnumerable<SelectListItem> selectList = new SelectList(new List<Object>{ 
+                        "What is your aunt name?" ,
+                       "What is you favourite food?" 
+                       ,"Which place you would love to visit?"});
+                       }
+                    <script>
+                        $(document).ready(function () {
+                            $("#pic").change(function(){
+                                var input = document.getElementById("pic");
+                                var file = input.value.split("\\");
+                                var fileName = file[file.length-1];
+                                $("#photo").text(fileName);});
+                        });
+                        $(document).ready(function () {
+                            $("#email").change(function () {
+                                var e = $("#email").val();
+                                $.getJSON("/Home/CheckEmail?email=" + e, function (data) {
+                                    if (data) {
+                                        $("#submitform").prop("disabled", true);
+                                        $("#isexist").text("Email already exists!");
+                                    }
+                                    else {
+                                        $("#isexist").text("");
+                                        $("#submitform").prop("disabled", false);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
+                        
+                    @using (Html.BeginForm("register", "admin", FormMethod.Post, new { id = "LoginForm", enctype = "multipart/form-data" ,@style="width:1000px"}))
+                    {
+                    @Html.LabelFor(Model => Model.username)<br />
+                    @Html.TextBoxFor(Model => Model.username, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "User Name" })
+                    @Html.ValidationMessageFor(Model => Model.username)<br />
+                        
+                    @Html.LabelFor(Model => Model.firstname)<br />
+                    @Html.TextBoxFor(Model => Model.firstname, null, new { @style = "width: 300px;height:50px;margin:20px", type = "text", placeholder = "Firstname" })				
+                    @Html.ValidationMessageFor(Model => Model.firstname)<br />
+                        
+                    @Html.LabelFor(Model => Model.lastname)<br />
+                    @Html.TextBoxFor(Model => Model.lastname, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "Lastname", id = "lastname" })
+                    @Html.ValidationMessageFor(Model => Model.lastname)<br />
+                        
+                    @Html.LabelFor(Model => Model.age)<br />
+                    @Html.TextBoxFor(Model => Model.age, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "Lastname", id = "lastname" })
+                    @Html.ValidationMessageFor(Model => Model.age)<br />
+                  	
+                  	@Html.LabelFor(Model => Model.email)<br />
+					@Html.TextBoxFor(Model => Model.email, null, new { @style = "width: 300px;margin:20px;height:50px", placeholder = "e.g. abc@yahoo.com", id = "email", ontextchanged = "" }) 
+                    @Html.ValidationMessageFor(Model => Model.email)<br /><div id="isexist" style="margin-left:20px;color:cornflowerblue"></div>
+                   
+                    @Html.LabelFor(Model => Model.password)<br />
+                    @Html.TextBoxFor(Model => Model.password, null, new { @style = "width: 300px;height:50px;margin:20px", type = "password", placeholder = "Password" })				
+		            @Html.ValidationMessageFor(Model => Model.password)<br />
+                        
+                    @Html.LabelFor(Model => Model.secretquestion)<br />
+                    @Html.DropDownListFor(Model => Model.secretquestion, selectList, "Select Question", new { @style = "width: 300px;height:50px;margin:20px" })	
+					@Html.ValidationMessageFor(Model => Model.secretquestion)<br />
+                        
+                    @Html.LabelFor(Model => Model.secretanswer)<br />
+                    @Html.TextBoxFor(Model => Model.secretanswer, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "Your answer?", id = "emaill" })
+                    @Html.ValidationMessageFor(Model => Model.secretanswer)<br />
+                   <Label for="pic" title="Upload pic" id="upic" >Upload pic
+                        <input id="pic" type="file" name="pic" accept="image/*" required/>
+
+                   </Label>
+                        <div id="photo"></div>
+                    <div class="address submit">                        
+						<input type="submit" value="Submit" style="margin-left:7px;margin-right:20px;margin-top:20px;margin-bottom:20px" id="submitform" >
+					</div>
+                    }                 
+       
+				</div>
+				
+				<div class="clearfix"></div>
+			</div>
+			
+		</div>
+	</div>
+	<!--register-end-->
+	

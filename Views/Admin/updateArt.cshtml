@@ -1,0 +1,87 @@
+﻿@model ArtGallary.Models.Product
+
+@{
+    ViewBag.Title = "updateArt";
+}
+<!--start-breadcrumbs-->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="breadcrumbs-main">
+				<ol class="breadcrumb">
+					<li><a href="/Home/index">Home</a></li>
+					<li class="active">Update Art</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!--end-breadcrumbs-->
+	<!--register-starts-->
+	<div class="register">
+		<div class="container">
+			<div class="register-top heading">
+				<h2>Update Art</h2>
+			</div>
+			<div class="register-main">
+				<div class="col-md-6 account-left">
+                     @{
+                         IEnumerable<SelectListItem> selectList = new SelectList(new List<Object>{ 
+                        "painting" ,
+                       "ceramics" 
+                       ,"architecture"
+                        ,"drawing"
+                        ,"sculpture"
+                        ,"photography"});
+                       }
+                   
+                    <script>
+                        $(document).ready(function () {
+                            $("#pic").change(function () {
+                                var input = document.getElementById("pic");
+                                var file = input.value.split("\\");
+                                var fileName = file[file.length - 1];
+                                $("#photo").text(fileName);
+                            });
+                        });
+
+                    </script>
+                        
+                    @using (Html.BeginForm("updateArt", "admin", FormMethod.Post, new { id = "UpdateForm", enctype = "multipart/form-data", @style = "width:1000px" }))
+                    {
+                    @Html.LabelFor(Model => Model.pname)<br />
+                    @Html.TextBoxFor(Model => Model.pname, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "Product Name" })
+                    @Html.ValidationMessageFor(Model => Model.pname)<br />
+                        
+                    @Html.LabelFor(Model => Model.price)<br />
+                    @Html.TextBoxFor(Model => Model.price, null, new { @style = "width: 300px;height:50px;margin:20px", type = "text", placeholder = "Price" })				
+                    @Html.ValidationMessageFor(Model => Model.price)<br />
+                      
+                    @Html.LabelFor(Model => Model.category)<br />
+                    @Html.DropDownListFor(Model => Model.category, selectList, "Select Category", new { @style = "width: 300px;height:50px;margin:20px" })
+                    @Html.ValidationMessageFor(Model => Model.category)<br />
+                        
+                    @Html.LabelFor(Model => Model.info)<br />
+                    @Html.TextBoxFor(Model => Model.info, null, new { @style = "width: 300px;margin:20px;height:50px", type = "text", placeholder = "Information" })
+                    @Html.ValidationMessageFor(Model => Model.info)<br />
+                  	
+                  	@Html.LabelFor(Model => Model.aname)<br />
+					@Html.TextBoxFor(Model => Model.aname, null, new { @style = "width: 300px;margin:20px;height:50px", placeholder = "Artist name", ontextchanged = "" }) 
+                    @Html.ValidationMessageFor(Model => Model.aname)<br /><div id="isexist" style="margin-left:20px;color:cornflowerblue"></div>
+                   
+                   <Label for="pic" title="Upload pic" id="upic" >Upload pic
+                        <input id="pic" type="file" name="pic" accept="image/*" required/>
+
+                    </Label><div id="photo"></div>
+                    <div class="address submit">                        
+						<input type="submit" value="Submit" style="margin-left:7px;margin-right:20px;margin-top:20px;margin-bottom:20px" id="submitform" >
+					</div>
+                    }                 
+       
+				</div>
+				
+				<div class="clearfix"></div>
+			</div>
+			
+		</div>
+	</div>
+	<!--register-end-->
+	

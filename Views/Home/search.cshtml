@@ -1,0 +1,66 @@
+﻿@model List<ArtGallary.Models.Product>
+
+@{
+    ViewBag.Title = "search";
+}
+
+<script>
+
+      $(document).ready(function () {
+
+        
+          $('.item_add').click(function () {
+              var id = $(this).attr('id');
+              $.getJSON("/home/cart?productid="+id+"",function (data) {
+                 
+                  $('#total span').text(data);
+              });
+
+          });
+
+      });
+    </script>
+<!--start-breadcrumbs-->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="breadcrumbs-main">
+				<ol class="breadcrumb">
+					<li><a href="/Home/index">Home</a></li>
+					<li class="active">Search Results</li>
+				</ol>
+			</div>
+		</div>
+	</div>
+	<!--end-breadcrumbs-->
+	<!--prdt-starts-->
+<div class="product"> 
+		<div class="container">
+            <h2>Search results for @ViewBag.text</h2>
+			<div class="product-top">
+				<div class="product-one">
+                    @{
+                         foreach (var s in Model){
+					<div class="col-md-3 product-left">
+						<div class="product-main simpleCart_shelfItem">
+							<a href="/Home/single?id=@s.Id" class="mask"><img class="img-responsive zoom-img" src="@Url.Content(@s.path)" alt="" style="height:250px;width:250px"/></a>
+							<div class="product-bottom">
+								<h3>@s.pname</h3>
+								<p>Explore Now</p>
+								<h4><a class="item_add" id="@s.Id"><i></i></a> <span class=" item_price">$ @s.price</span></h4>
+							</div>
+							<div class="srch">
+								
+							</div>
+						</div>
+					</div>
+                    }
+                    }
+					
+					
+					<div class="clearfix"></div>
+				</div>					
+			</div>
+		</div>
+	</div>
+	<!--product-end-->
+

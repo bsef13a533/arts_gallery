@@ -1,0 +1,125 @@
+﻿@model List<ArtGallary.Models.Product>
+
+@{
+    ViewBag.Title = "listArt";
+}
+
+	<div class="pages" id="pages">
+		<div class="container">
+			<div class="typo-top heading">
+				<h2>Admin</h2>
+			</div>
+            </div>
+        </div>
+
+<style>
+    .art{
+     border: 0px solid black
+     }
+     .art th{
+    padding:15px;
+    color:cornflowerblue;
+    /*text-shadow:1px 1px 1px #568F23;*/
+    border-bottom:3px solid black;
+    background-color:#9DD929;
+    
+    background:-webkit-gradient(
+        linear,
+        left bottom,
+        left top
+        
+        );
+    background: -moz-linear-gradient(
+        center bottom
+       
+        );
+     background: white;/*heading of table*/
+    -webkit-border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-radius:5px 5px 0px 0px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+  }
+.art td{
+    width:100px;
+    padding:10px;
+    text-align:center;
+    vertical-align: top;
+    background-color:white;
+    border: 1px solid black;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+    color:cornflowerblue;
+    text-shadow:1px 1px  #0E0909;
+
+  }
+  .btn {
+  background: cornflowerblue;
+  background-image: -webkit-linear-gradient(top, #bec2c4, #9eabab);
+  background-image: -moz-linear-gradient(top, #bec2c4, #9eabab);
+  background-image: -ms-linear-gradient(top, #bec2c4, #9eabab);
+  background-image: -o-linear-gradient(top, #bec2c4,#9eabab );
+  background-image: linear-gradient(to bottom, #bec2c4, #9eabab);
+  -webkit-border-radius: 33px;
+  -moz-border-radius: 33px;
+  border-radius: 33px;
+  /*text-shadow: 0px 1px 0px #e60e32;*/
+  font-family: Georgia;
+  color: #f7d7e0;
+  font-size: 14px;
+  padding: 6px 9px 6px 9px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #dbcacc;
+  background-image: -webkit-linear-gradient(top, #dbcacc, cornflowerblue);
+  background-image: -moz-linear-gradient(top, #dbcacc, cornflowerblue);
+  background-image: -ms-linear-gradient(top, #dbcacc, cornflowerblue);
+  background-image: -o-linear-gradient(top, #dbcacc, cornflowerblue);
+  background-image: linear-gradient(to bottom, #dbcacc, cornflowerblue);
+  text-decoration: none;
+}
+    </style>
+ <p style="margin-right:auto;margin-left:490px">
+                <input class="btn  btn-default" type="button" onclick="@("location.href='"+ Url.Action("register", "Admin")+ "'")" value="Add new admin" />
+                <input class="btn  btn-default" type="button" onclick="@("location.href='"+ Url.Action("addArt", "Admin")+ "'")" value="Add Art"  />                  
+            <button class="btn  btn-default"><b>Back to Menu</b></button></p>
+      
+    
+    <table style="margin-left:auto;margin-right:auto" class="art" border=3>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Information</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Path</th>
+                <th>Artist Name</th>
+                <th colspan=2>Action</th>
+            </tr>
+        </thead>
+           
+        <tbody>
+      @{
+          
+            foreach (var s in Model){
+            <tr>   
+             <td>@s.Id</td>   
+            <td>@s.pname</td>
+            <td>@s.info</td>     
+            <td>@s.price</td>
+            <td>@s.category</td>     
+            <td>@s.path</td>
+             <td>@s.aname</td>
+            <td><button class="btn btn-default"><b>Update</b></button></td>
+            <td><button class="btn  btn-default"><b>Delete</b></button></td>
+        </tr>
+ }
+}
+        </tbody>
+    </table>
+   
+          
